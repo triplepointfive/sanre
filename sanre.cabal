@@ -17,6 +17,8 @@ library
   hs-source-dirs:      src
   exposed-modules:     Lib
   build-depends:       base >= 4.7 && < 5
+                     , containers
+                     , directory-tree
                      , haskell-src
                      , haskell-src-exts
                      , haskell-src-meta
@@ -28,7 +30,6 @@ executable sanre-exe
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
                      , sanre
-                     , ghc-mod
                      , haskell-src
                      , haskell-src-exts
                      , haskell-src-meta
