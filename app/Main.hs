@@ -1,6 +1,7 @@
 module Main where
 
 import Lib
+import Language.Haskell.GhcMod
 
 main :: IO ()
-main = someFunc
+main = runGhcModT defaultOptions (loadSymbolDb "../soten/soten.cabal") >>= print
