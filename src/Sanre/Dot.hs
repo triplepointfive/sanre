@@ -1,5 +1,15 @@
 {-# LANGUAGE OverloadedStrings #-}
-
+-----------------------------------------------------------------------------
+-- |
+-- Copyright   :  (C) 2015 Smelkov Ilya
+-- License     :  MIT (see the file LICENSE)
+-- Maintainer  :  Smelkov Ilya <triplepointfive@gmail.com>
+-- Stability   :  experimental
+-- Portability :  non-portable
+--
+-- Dotted graphs renderer.
+--
+-----------------------------------------------------------------------------
 module Sanre.Dot (
    graphToDot
  , graphToDotParams
@@ -10,8 +20,10 @@ module Sanre.Dot (
 import qualified Data.Map.Strict as Map
 
 import Data.GraphViz hiding (graphToDot)
-import Data.GraphViz.Attributes.Complete( Attribute(RankDir, Splines, FontName)
-                       , RankDir(FromLeft), EdgeType(SplineEdges))
+import Data.GraphViz.Attributes.Complete (
+         Attribute(RankDir, Splines, FontName)
+       , RankDir(FromLeft), EdgeType(SplineEdges)
+       )
 
 import Control.Arrow(second)
 
