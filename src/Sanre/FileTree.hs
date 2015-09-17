@@ -1,5 +1,5 @@
-module Lib
-    ( someFunc
+module Sanre.FileTree (
+      buildDirTree
     ) where
 
 import qualified Data.Map.Strict as Map
@@ -8,11 +8,7 @@ import Language.Haskell.Meta
 import Language.Haskell.Exts.Syntax
 import System.Directory.Tree
 
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"
-
-type Node = (String, [String])
-type Tree = Map.Map String [String]
+import Sanre.Types
 
 buildDirTree :: FilePath -> IO Tree
 buildDirTree filePath = do
