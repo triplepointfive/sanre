@@ -28,7 +28,7 @@ buildDirTree filePath = do
     return (foldDirTree Map.empty at)
 
 -- | Folds a node, which could be eight a dir or file.
--- Doesn't file, all errors are swallowed.
+-- Doesn't fail, all errors are swallowed.
 foldDirTree :: Tree -> DirTree String -> Tree
 foldDirTree tree (File _ content) = case parseHsModule content of
     Right m -> addNode (moduleNode m) tree

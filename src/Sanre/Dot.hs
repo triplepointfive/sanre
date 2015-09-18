@@ -14,7 +14,6 @@ module Sanre.Dot (
    graphToDot
  , graphToDotParams
  , vacuumParams
-
 ) where
 
 import qualified Data.Map.Strict as Map
@@ -22,12 +21,12 @@ import qualified Data.Map.Strict as Map
 import Data.GraphViz hiding (graphToDot)
 import Data.GraphViz.Attributes.Complete (
          Attribute(RankDir, Splines, FontName)
-       , RankDir(FromLeft), EdgeType(SplineEdges)
+       , RankDir(..), EdgeType(SplineEdges)
        )
 
 import Control.Arrow(second)
 
-import Sanre.Types
+import Sanre.Types hiding (Color(..), color)
 
 graphToDot :: Tree -> DotGraph String
 graphToDot = graphToDotParams vacuumParams . Map.toList
@@ -44,7 +43,7 @@ vacuumParams :: GraphvizParams a () () () ()
 vacuumParams = defaultParams { globalAttributes = gStyle  }
 
 gStyle :: [GlobalAttributes]
-gStyle = [ GraphAttrs [RankDir FromLeft, Splines SplineEdges, FontName "courier"]
-         , NodeAttrs  [textLabel "\\N", shape PlainText, fontColor Blue]
-         , EdgeAttrs  [color Black, style dotted]
+gStyle = [ GraphAttrs [RankDir FromBottom, Splines SplineEdges, FontName "courier"]
+         , NodeAttrs  [textLabel "\\N", shape Box3D, fontColor Blue]
+         , EdgeAttrs  [color Black, style solid]
          ]
