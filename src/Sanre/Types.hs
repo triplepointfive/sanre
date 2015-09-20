@@ -14,7 +14,6 @@ module Sanre.Types where
 
 import Data.Data
 import qualified Data.Map.Strict as Map
-import Data.Typeable
 
 -- | A module and it's imports.
 type Node = (String, [String])
@@ -34,4 +33,5 @@ data Config = Config
     { directory :: FilePath
     , external  :: Bool
     , color     :: Color
+    , uniq      :: Bool
     } deriving (Show, Data, Typeable)

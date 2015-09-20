@@ -27,6 +27,7 @@ import Data.GraphViz.Attributes.Complete (
 import Control.Arrow(second)
 
 import Sanre.Types hiding (Color(..), color)
+import qualified Sanre.Types (Color(..))
 
 graphToDot :: Tree -> DotGraph String
 graphToDot = graphToDotParams vacuumParams . Map.toList
