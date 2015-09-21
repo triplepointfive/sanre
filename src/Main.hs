@@ -7,7 +7,7 @@ import Control.Monad
 import Data.GraphViz (GraphvizOutput(Png), runGraphviz, addExtension)
 import System.Console.CmdArgs
 
-import Sanre.Dot
+import Sanre.Draw
 import Sanre.FileTree
 import Sanre.Types
 import Sanre.Graph

@@ -10,7 +10,7 @@
 -- Dotted graphs renderer.
 --
 -----------------------------------------------------------------------------
-module Sanre.Dot (
+module Sanre.Draw (
    graphToDot
  , graphToDotParams
  , vacuumParams
@@ -32,7 +32,8 @@ import qualified Sanre.Types (Color(..))
 graphToDot :: Tree -> DotGraph String
 graphToDot = graphToDotParams vacuumParams . Map.toList
 
-graphToDotParams :: (Ord a, Ord cl) => GraphvizParams a () () cl l -> [(a, [a])] -> DotGraph a
+graphToDotParams :: (Ord a, Ord cl) => GraphvizParams a () () cl l
+                 -> [(a, [a])] -> DotGraph a
 graphToDotParams params nes = graphElemsToDot params ns es
   where
     ns = map (second $ const ()) nes
@@ -44,7 +45,9 @@ vacuumParams :: GraphvizParams a () () () ()
 vacuumParams = defaultParams { globalAttributes = gStyle  }
 
 gStyle :: [GlobalAttributes]
-gStyle = [ GraphAttrs [RankDir FromBottom, Splines SplineEdges, FontName "courier"]
-         , NodeAttrs  [textLabel "\\N", shape Box3D, fontColor Blue]
-         , EdgeAttrs  [color Black, style solid]
+gStyle = [ GraphAttrs attrs
+         , NodeAttrs  [textLabel "\\N", shape Hexagon, fontColor Red]
+         , EdgeAttrs  [color Green, style solid]
          ]
+  where
+    attrs = [RankDir FromBottom, Splines SplineEdges, FontName "courier"]
