@@ -32,7 +32,7 @@ buildDirTree filePath = do
 foldDirTree :: Tree -> DirTree String -> Tree
 foldDirTree tree (File _ content) = case parseHsModule content of
     Right m -> addNode (moduleNode m) tree
-    Left  s -> tree -- Just for now
+    Left  _ -> tree -- Just for now
 foldDirTree tree (Dir _ nodes) = foldl foldDirTree tree nodes
 foldDirTree tree (Failed _ _)  = tree
 

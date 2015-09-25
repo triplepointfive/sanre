@@ -33,4 +33,4 @@ main = cmdArgs config >>= sanreMain
 sanreMain :: Config -> IO ()
 sanreMain config = do
     dirTree <- buildGraph config <$> buildDirTree (directory config)
-    void $ addExtension (runGraphviz (graphToDot dirTree)) Png "image"
+    void $ addExtension (runGraphviz (graphToDot config dirTree)) Png "image"

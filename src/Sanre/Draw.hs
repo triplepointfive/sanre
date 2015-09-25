@@ -26,11 +26,12 @@ import Data.GraphViz.Attributes.Complete (
 
 import Control.Arrow(second)
 
-import Sanre.Types hiding (Color(..), color)
-import qualified Sanre.Types (Color(..))
+import qualified Sanre.Types as San
 
-graphToDot :: Tree -> DotGraph String
-graphToDot = graphToDotParams vacuumParams . Map.toList
+graphToDot :: San.Config -> San.Tree -> DotGraph String
+graphToDot config = graphToDotParams params . Map.toList
+  where
+    params = vacuumParams config
 
 graphToDotParams :: (Ord a, Ord cl) => GraphvizParams a () () cl l
                  -> [(a, [a])] -> DotGraph a
@@ -41,13 +42,32 @@ graphToDotParams params nes = graphElemsToDot params ns es
     es = concatMap mkEs nes
     mkEs (f,ts) = map (\t -> (f,t,())) ts
 
-vacuumParams :: GraphvizParams a () () () ()
-vacuumParams = defaultParams { globalAttributes = gStyle  }
+vacuumParams :: San.Config -> GraphvizParams a () () () ()
+vacuumParams config = defaultParams { globalAttributes = gStyle config }
 
-gStyle :: [GlobalAttributes]
-gStyle = [ GraphAttrs attrs
-         , NodeAttrs  [textLabel "\\N", shape Hexagon, fontColor Red]
-         , EdgeAttrs  [color Green, style solid]
-         ]
+gStyle :: San.Config -> [GlobalAttributes]
+gStyle config =
+    [ GraphAttrs graphAttrs
+    , NodeAttrs  nodeAttrs
+    , EdgeAttrs  edgeAttrs
+    ]
   where
-    attrs = [RankDir FromBottom, Splines SplineEdges, FontName "courier"]
+    edgeAttrs  =
+        [ color (mapColor (San.color config))
+        , style solid
+        ]
+    graphAttrs =
+        [ RankDir FromBottom
+        , Splines SplineEdges
+        , FontName "courier"
+        ]
+    nodeAttrs =
+        [ textLabel "\\N"
+        , shape Hexagon
+        , fontColor Red
+        ]
+
+mapColor :: San.Color -> X11Color
+mapColor San.Blue  = Blue
+mapColor San.Black = Black
+mapColor San.Green = Green
