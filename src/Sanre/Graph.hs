@@ -1,4 +1,4 @@
-{-# LANGUAGE RecordWildCards     #-}
+-- {-# LANGUAGE RecordWildCards     #-}
 -----------------------------------------------------------------------------
 -- |
 -- Copyright   :  (C) 2015 Smelkov Ilya
@@ -21,12 +21,12 @@ import Sanre.Types
 
 -- | Accepts the dir tree and applies transformations listed in a config.
 buildGraph :: Config -> Tree -> Tree
-buildGraph Config{..} tree = foldl (\ x f-> f x) tree processes
+buildGraph config tree = foldl (\ x f-> f x) tree processes
   where
     processes :: [Tree -> Tree]
     processes = map snd $ filter fst
-      [ ( external, excludeExternal )
-      , ( uniq, excludeDuplicates )
+      [ ( external config, excludeExternal )
+      , ( uniq config, excludeDuplicates )
       ]
 
 -- | Removes nodes which does not presence in a tree. Usually it's
