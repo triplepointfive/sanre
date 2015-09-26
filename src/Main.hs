@@ -1,7 +1,6 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 module Main where
 
-import qualified Data.Map as Map
 import Control.Monad
 
 import Data.GraphViz (GraphvizOutput(Png), runGraphviz, addExtension)
@@ -12,12 +11,13 @@ import Sanre.FileTree
 import Sanre.Types
 import Sanre.Graph
 
-config :: Config
-config = Config
+conf :: Config
+conf = Config
     { directory = def &= args &= typDir &= opt "."
     , external  = def &= help "Include links to external modules"
     , color     = Black
     , uniq      = def &= help "Consider multiple imports of same module as one"
+    , fontColor = Black
     } &=
     help "Draws graph for Haskell modules dependencies" &=
     summary "Sanre v0.1, (C) Ilya Smelkov" &=
@@ -28,7 +28,7 @@ config = Config
       "  sanre src"]
 
 main :: IO ()
-main = cmdArgs config >>= sanreMain
+main = cmdArgs conf >>= sanreMain
 
 sanreMain :: Config -> IO ()
 sanreMain config = do

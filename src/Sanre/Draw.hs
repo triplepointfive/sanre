@@ -64,7 +64,7 @@ gStyle config =
     nodeAttrs =
         [ textLabel "\\N"
         , shape Hexagon
-        , fontColor Red
+        , fontColor (mapColor (San.fontColor config))
         ]
 
 mapColor :: San.Color -> X11Color

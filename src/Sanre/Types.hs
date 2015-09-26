@@ -34,4 +34,5 @@ data Config = Config
     , external  :: Bool
     , color     :: Color
     , uniq      :: Bool
+    , fontColor :: Color
     } deriving (Show, Data, Typeable)
